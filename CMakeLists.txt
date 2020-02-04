@@ -1,14 +1,27 @@
-cmake_minimum_required(VERSION 3.5.1)
-project(dummy_cmake_project)
+cmake_minimum_required(VERSION 3.0)
+project(singleton)
 
 set(CMAKE_CXX_STANDARD 14)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-set(SOURCES project.cc)
-add_library(ProjectLib ${SOURCES})
-
-add_executable(project main.cc)
-target_link_libraries(project ProjectLib)
-
 enable_testing()
-add_subdirectory(test)
+include(AddGoogleTest)
+
+
+add_library(device
+            "device.cc")
+
+
+add_library(client
+            "client.cc")
+
+target_link_libraries(client device)
+
+add_executable(singleton "main.cc")
+add_gtest(singleton)
+target_link_libraries(singleton PRIVATE client)
+
+
+add_executable(tests "test.cc")
+add_gtest(tests)
+
+target_link_libraries(tests PRIVATE client)
