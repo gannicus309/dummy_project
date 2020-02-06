@@ -4,14 +4,17 @@
 
 namespace visitor {
 class Relay;
-class RGB;
+class CompositeRelay;
 
-class IVisitor {
+class StateSaver {
 public:
-  virtual ~IVisitor() {}
-  virtual void Visit(Relay *) = 0;
-  virtual void Visit(RGB*) = 0;
+  virtual ~StateSaver() {}
 
+  virtual void Restore(Relay *) = 0;
+  virtual void Restore(CompositeRelay*) = 0;
+
+  virtual void Save(Relay *) = 0;
+  virtual void Save(CompositeRelay*) = 0;
 };
 
 } /* namespace visitor */

@@ -1,26 +1,44 @@
-#include "RGB.h"
+#include "CompositeRelay.h"
+#include "statesaveimpl.h"
 #include "Relay.h"
-#include "DayMode.h"
-#include "NightMode.h"
 #include <iostream>
-void setMode(visitor::IVisitor* visitor, visitor::IRelay* relay) {
-  relay->Accept(visitor);
-}
+
 
 int main() {
-  visitor::IRelay* r1 =  new visitor::RGB();
-  visitor::IRelay* r2 = new visitor::Relay();
-  visitor::IVisitor* day_mode = new visitor::DayMode();
-  visitor::IVisitor* night_mode =new visitor::NightMode();
+  int index = 1;
+  std::vector <visitor::IRelay*> all;
 
-  std::cout << "Day mode " << std::endl;
-  setMode(day_mode,r1);
-  setMode(day_mode,r2);
-  std::cout << std::endl;
-  std::cout << "Night mode " << std::endl;
-  setMode(night_mode,r1);
-  setMode(night_mode,r2);
+  auto room1 = new visitor::CompositeRelay("room1");
+  room1->members_.push_back(new visitor::Relay(index++));
+//  room1->members_.push_back(new visitor::Relay(index++));
+  room1->members_.push_back(new visitor::Relay(index++));
+  room1->On();
 
+  auto room2 = new visitor::CompositeRelay("room2");
+  room2->members_.push_back(new visitor::Relay(index++));
+  auto special= new visitor::Relay(index++);
+  room2->members_.push_back(special);
+//  room2->members_.push_back(new visitor::Relay(index++));
+//  room2->members_.push_back(new visitor::Relay(index++));
+  room2->Off();
+  special->On();
 
+  auto house = new visitor::CompositeRelay("House");
+  house->members_.push_back(room1);
+  house->members_.push_back(room2);
+
+  auto outdoor= new visitor::Relay(index++);
+  outdoor->On();
+  house->members_.push_back(outdoor);
+  house->Print();
+  std::cout << "\n Save state \n " << std::endl;
+  visitor::StateSaveImpl state_saver;
+  house->SaveState(&state_saver);
+  std::cout << "\n Turn off house \n " << std::endl;
+  house->Off();
+  house->Print();
+  std::cout << "\n Restore state \n " << std::endl;
+  house->RestoreState(&state_saver);
+  house->Print();
 	return 0;
 }

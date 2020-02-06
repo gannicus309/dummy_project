@@ -1,1 +1,18 @@
-椣湦敤⁦剉䱅奁䡟੟搣晥湩⁥剉䱅奁䡟੟渊浡獥慰散瘠獩瑩牯笠挊慬獳䤠楖楳潴㭲ਊ汣獡⁳剉汥祡笠瀊扵楬㩣 瘠物畴污縠剉汥祡⤨㴠搠晥畡瑬਻†楶瑲慵⁬潶摩传⡮ ‽㬰 瘠物畴污瘠楯⁤晏⡦ ‽㬰 瘠物畴污瘠楯⁤捁散瑰䤨楖楳潴⩲ ‽㬰紊਻紊⼠‪慮敭灳捡⁥楶楳潴⁲⼪ਊ攣摮晩⼠‪剉䱅奁䡟 ⼪
+#ifndef IRELAY_H_
+#define IRELAY_H_
+
+namespace visitor {
+class StateSaver;
+class IRelay {
+public:
+  virtual ~IRelay() = default;
+  virtual void On() = 0;
+  virtual void Off() = 0;
+  virtual void Print() = 0;
+  virtual void SaveState(StateSaver*) = 0;
+  virtual void RestoreState(StateSaver*) = 0;
+};
+
+} /* namespace visitor */
+
+#endif /* IRELAY_H_ */

@@ -3,14 +3,23 @@
 
 #include "IVisitor.h"
 #include "IRelay.h"
+
 namespace visitor {
 
 class Relay: public IRelay {
 public:
-  Relay()  {}
+  Relay(int index)  :state_(false), index_(index){}
   void On() override;
   void Off() override;
-  void Accept(IVisitor*) override;
+  void SaveState(StateSaver*) override;
+  void RestoreState(StateSaver*);
+  bool state_;
+
+  int index_;
+
+  // IRelay interface
+public:
+  void Print();
 };
 
 } /* namespace visitor */

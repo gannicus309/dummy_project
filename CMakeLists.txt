@@ -8,10 +8,9 @@ include(AddGoogleTest)
 
 
 add_executable(visitor
-            "DayMode.cpp"
-            "NightMode.cpp"
+            "statesaveimpl.cc"
             "Relay.cpp"
-            "RGB.cpp"
+            "CompositeRelay.cpp"
             "main.cpp")
 
 
