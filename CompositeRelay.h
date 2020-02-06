@@ -1,15 +1,13 @@
-#ifndef RGB_H_
-#define RGB_H_
-
+#pragma once
 #include <vector>
 #include <string>
 #include "IRelay.h"
 #include "IVisitor.h"
 namespace visitor {
 
-class CompositeRelay: public IRelay {
-public:
-  CompositeRelay(std::string name):name_(name) {}
+class CompositeRelay : public IRelay {
+ public:
+  CompositeRelay(std::string name) : name_(name) {}
   void On() override;
   void Off() override;
   void SaveState(StateSaver*) override;
@@ -19,10 +17,9 @@ public:
   std::string name_;
 
   // IRelay interface
-public:
-  void Print();
+ public:
+  void Print(int offset);
 };
 
 } /* namespace visitor */
 
-#endif /* RGB_H_ */

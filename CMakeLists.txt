@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.0)
 project(visitor)
 
 set(CMAKE_CXX_STANDARD 14)
-list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-enable_testing()
-include(AddGoogleTest)
+#list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+#enable_testing()
+#include(AddGoogleTest)
 
 
 add_executable(visitor

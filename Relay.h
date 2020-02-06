@@ -1,27 +1,25 @@
-#ifndef RELAY_H_
-#define RELAY_H_
+#pragma once
 
+#include <string>
 #include "IVisitor.h"
 #include "IRelay.h"
-
 namespace visitor {
 
-class Relay: public IRelay {
-public:
-  Relay(int index)  :state_(false), index_(index){}
+class Relay : public IRelay {
+ public:
+  Relay(std::string name) : state_(false), name_(name) {}
   void On() override;
   void Off() override;
   void SaveState(StateSaver*) override;
   void RestoreState(StateSaver*);
   bool state_;
 
-  int index_;
+  std::string name_;
 
   // IRelay interface
-public:
-  void Print();
+ public:
+  void Print(int offset);
 };
 
 } /* namespace visitor */
 
-#endif /* RELAY_H_ */

@@ -1,7 +1,4 @@
-
-#ifndef IVISITOR_H_
-#define IVISITOR_H_
-
+#pragma once
 namespace visitor {
 class Relay;
 class CompositeRelay;
@@ -18,5 +15,3 @@ public:
 };
 
 } /* namespace visitor */
-
-#endif /* IVISITOR_H_ */

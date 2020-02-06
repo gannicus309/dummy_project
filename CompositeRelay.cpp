@@ -3,14 +3,12 @@
 namespace visitor {
 
   void CompositeRelay::On() {
-//    std::cout << "CompositeRelay::On " << name_ << std::endl;
     for (auto r : members_) {
       r->On();
     }
   }
 
   void CompositeRelay::Off() {
-//    std::cout << "CompositeRelay::Off " << name_ << std::endl;
     for (auto r : members_) {
       r->Off();
     }
@@ -24,12 +22,14 @@ namespace visitor {
     visitor->Restore(this);
   }
 
-  void CompositeRelay::Print() {
-    std::cout << "-------------------------"<< name_  << "-- start" << std::endl;
-    for (auto m : members_) {
-      m->Print();
+  void CompositeRelay::Print(int offset) {
+    for (int i = 0 ; i < offset ; ++i) {
+      std::cout << "--";
     }
-    std::cout << "-------------------------" << name_ << "-- end" << std::endl;
+    std::cout << name_ << ":" <<  std::endl;
+    for (auto m : members_) {
+      m->Print(offset + 1);
+    }
   }
 
 } /* namespace visitor */

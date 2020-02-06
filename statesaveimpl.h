@@ -1,18 +1,16 @@
-#ifndef STATESAVEIMPL_H
-#define STATESAVEIMPL_H
+#pragma once
 #include "IVisitor.h"
 #include <vector>
 namespace visitor {
 class StateSaveImpl : public StateSaver {
-public:
+ public:
   StateSaveImpl();
 
-private:
+ private:
   bool state_;
   std::vector<StateSaver*> composite_;
 
-  // StateSaver interface
-public:
+ public:
   void Restore(Relay*);
   void Restore(CompositeRelay*);
   void Save(Relay*);
@@ -20,4 +18,3 @@ public:
 };
 }
 
-#endif // STATESAVEIMPL_H
