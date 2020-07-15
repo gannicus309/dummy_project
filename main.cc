@@ -1,5 +1,7 @@
+#include "run.h"
 #include "project.h"
 
 int main() {
-  return 0;
+  dev::Project p;
+  return run(p);
 }
