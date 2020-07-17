@@ -1,3 +1,6 @@
-#include "iproject.h"
+#pragma once
+#include <iosfwd>
 
-int run(dev::IProject& proj) ;
+void run(std::istream& in, std::ostream& out);
+
+
