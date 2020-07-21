@@ -14,19 +14,19 @@ bool Calculator::isOperator(char op){
     }
 }
 
-void Calculator::getVariables(float& var1, float& var2)
+void Calculator::getVariables(float& firstOperand, float& secondOperand)
 {
-    var1 = mOperandStack.top();
+    firstOperand = mOperandStack.top();
     mOperandStack.pop();
-    var2 = mOperandStack.top();
+    secondOperand = mOperandStack.top();
     mOperandStack.pop();
 }
 
 double Calculator::evaluate(const std::string& expression)
 {
     double ret =0.0;
-    float var1,var2;
-    var1=var2=0.0;
+    float firstOperand,secondOperand;
+    firstOperand=secondOperand=0.0;
     for(int index=0;index < expression.length();index++)
     {
         // ignore the spaces
@@ -51,18 +51,18 @@ double Calculator::evaluate(const std::string& expression)
         }
         // Check if operator and perform the operation of numbers from stack
         else if (isOperator(expression[index])){
-            getVariables(var1,var2);
+            getVariables(firstOperand,secondOperand);
             if (expression[index] == '+'){
-                ret = var1+var2;
+                ret = firstOperand+secondOperand;
             }
             if (expression[index] == '-'){
-                ret = var2-var1;
+                ret = secondOperand-firstOperand;
             }
             if (expression[index] == '*'){
-                ret = var1*var2;
+                ret = firstOperand*secondOperand;
             }
             if (expression[index] == '/'){
-                ret = var2/var1;
+                ret = secondOperand/firstOperand;
             }
 
             // push the final result
