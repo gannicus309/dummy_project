@@ -21,10 +21,12 @@ double Calculator::evaluate(std::string expression)
     v1=v2=0;
     for(int i=0;i < expression.length();i++)
     {
+        // ignore the spaces
         if (isspace(expression[i])){
             continue;
         }
 
+        // Push to stack, if digit
         if(isdigit(expression[i]))
         {
             std::string str;
@@ -36,8 +38,10 @@ double Calculator::evaluate(std::string expression)
             }
 
             mStack.push(stof(str));
+            // Decrease index as currently points to advanced element
             i--;
         }
+        // Check if operator and perform the operation of numbers from stack
         else if (IsOperator(expression[i])){
             if (expression[i] == '+'){
                 v1 = mStack.top();
@@ -68,10 +72,11 @@ double Calculator::evaluate(std::string expression)
                 ret = v2/v1;
             }
 
+            // push the final result
             mStack.push(ret);
         }
         }
-    //Return answer
+    // return answer
     return mStack.top();
 }
 
