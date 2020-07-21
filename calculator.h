@@ -17,7 +17,8 @@ private:
 
     //Stack to hold the numbers
     std::stack<float> mOperandStack;
-    bool isOperator(char op);   
+    bool isOperator(char op);
+    void getVariables(float& var1, float& var2);
 };
 
 }  // namespace calculator

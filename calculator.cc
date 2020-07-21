@@ -14,6 +14,14 @@ bool Calculator::isOperator(char op){
     }
 }
 
+void Calculator::getVariables(float& var1, float& var2)
+{
+    var1 = mOperandStack.top();
+    mOperandStack.pop();
+    var2 = mOperandStack.top();
+    mOperandStack.pop();
+}
+
 double Calculator::evaluate(const std::string& expression)
 {
     double ret =0.0;
@@ -43,32 +51,17 @@ double Calculator::evaluate(const std::string& expression)
         }
         // Check if operator and perform the operation of numbers from stack
         else if (isOperator(expression[index])){
+            getVariables(var1,var2);
             if (expression[index] == '+'){
-                var1 = mOperandStack.top();
-                mOperandStack.pop();
-                var2 = mOperandStack.top();
-                mOperandStack.pop();
                 ret = var1+var2;
             }
             if (expression[index] == '-'){
-                var1 = mOperandStack.top();
-                mOperandStack.pop();
-                var2 = mOperandStack.top();
-                mOperandStack.pop();
                 ret = var2-var1;
             }
             if (expression[index] == '*'){
-                var1 = mOperandStack.top();
-                mOperandStack.pop();
-                var2 = mOperandStack.top();
-                mOperandStack.pop();
                 ret = var1*var2;
             }
             if (expression[index] == '/'){
-                var1 = mOperandStack.top();
-                mOperandStack.pop();
-                var2 = mOperandStack.top();
-                mOperandStack.pop();
                 ret = var2/var1;
             }
 
