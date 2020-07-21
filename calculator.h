@@ -9,14 +9,15 @@ public:
 
     /**
      * method to evaluate the expression
+     * param expression string fetched from console input
      */
-    double evaluate(std::string expression);
+    double evaluate(const std::string& expression);
 
 private:
 
     //Stack to hold the numbers
-    std::stack<float> mStack;
-    bool IsOperator(char c);   
+    std::stack<float> mOperandStack;
+    bool isOperator(char op);   
 };
 
 }  // namespace calculator

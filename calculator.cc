@@ -2,8 +2,8 @@
 
 namespace dev {
 
-bool Calculator::IsOperator(char c){
-    switch (c){
+bool Calculator::isOperator(char op){
+    switch (op){
         case '+':
         case '-':
         case '*':
@@ -14,70 +14,70 @@ bool Calculator::IsOperator(char c){
     }
 }
 
-double Calculator::evaluate(std::string expression) 
+double Calculator::evaluate(const std::string& expression)
 {
     double ret =0.0;
-    float v1,v2;
-    v1=v2=0;
-    for(int i=0;i < expression.length();i++)
+    float var1,var2;
+    var1=var2=0.0;
+    for(int index=0;index < expression.length();index++)
     {
         // ignore the spaces
-        if (isspace(expression[i])){
+        if (isspace(expression[index])){
             continue;
         }
 
         // Push to stack, if digit
-        if(isdigit(expression[i]))
+        if(isdigit(expression[index]))
         {
-            std::string str;
+            std::string digitsStr;
 
-            while (i < expression.size() && ((isdigit(expression[i]) || expression[i] == '.')))
+            while (index < expression.size() && ((isdigit(expression[index]) || expression[index] == '.')))
             {
-                str.push_back(expression[i]);
-                i++;
+                digitsStr.push_back(expression[index]);
+                index++;
             }
 
-            mStack.push(stof(str));
+            mOperandStack.push(stof(digitsStr));
             // Decrease index as currently points to advanced element
-            i--;
+            index--;
         }
         // Check if operator and perform the operation of numbers from stack
-        else if (IsOperator(expression[i])){
-            if (expression[i] == '+'){
-                v1 = mStack.top();
-                mStack.pop();
-                v2 = mStack.top();
-                mStack.pop();
-                ret = v1+v2;
+        else if (isOperator(expression[index])){
+            if (expression[index] == '+'){
+                var1 = mOperandStack.top();
+                mOperandStack.pop();
+                var2 = mOperandStack.top();
+                mOperandStack.pop();
+                ret = var1+var2;
             }
-            if (expression[i] == '-'){
-                v1 = mStack.top();
-                mStack.pop();
-                v2 = mStack.top();
-                mStack.pop();
-                ret = v2-v1;
+            if (expression[index] == '-'){
+                var1 = mOperandStack.top();
+                mOperandStack.pop();
+                var2 = mOperandStack.top();
+                mOperandStack.pop();
+                ret = var2-var1;
             }
-            if (expression[i] == '*'){
-                v1 = mStack.top();
-                mStack.pop();
-                v2 = mStack.top();
-                mStack.pop();
-                ret = v1*v2;
+            if (expression[index] == '*'){
+                var1 = mOperandStack.top();
+                mOperandStack.pop();
+                var2 = mOperandStack.top();
+                mOperandStack.pop();
+                ret = var1*var2;
             }
-            if (expression[i] == '/'){
-                v1 = mStack.top();
-                mStack.pop();
-                v2 = mStack.top();
-                mStack.pop();
-                ret = v2/v1;
+            if (expression[index] == '/'){
+                var1 = mOperandStack.top();
+                mOperandStack.pop();
+                var2 = mOperandStack.top();
+                mOperandStack.pop();
+                ret = var2/var1;
             }
 
             // push the final result
-            mStack.push(ret);
+            mOperandStack.push(ret);
         }
         }
     // return answer
-    return mStack.top();
+    return mOperandStack.top();
 }
 
 }  // namespace dev
